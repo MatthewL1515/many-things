@@ -1,6 +1,7 @@
 let circles = [] // Array to store the 10 random circles
 let mouseCircle // Object for the mouse-controlled circle
 let numCircles = 10 // Number of random circles
+let speedIncreaseRate = 1.001
 
 function setup() {
   createCanvas(400, 400)
@@ -49,6 +50,10 @@ function updateCircle(circle) {
   circle.y += circle.dy
   
   
+  // Increasing Speed
+  circle.dx *= speedIncreaseRate
+  circle.dy *= speedIncreaseRate
+  
   // Boundary Checking
   if (circle.x - circle.r < 0 || circle.x + circle.r > width) {
     circle.dx *= -1
@@ -81,13 +86,10 @@ function startCircles() {
 function checkCollision(c1,c2) {
   let distance = dist(c1.x, c1.y, c2.x, c2.y)
   if (distance <= c1.r + c2.r) {
-    stopCirlces()
+    noLoop()
     }
 }
 
-function stopCircles(){
-  for (let circle of circles) {
-    circle.dx = 0
-    circle.dy = 0
-  }
+function keyPressed() {
+  startCircles()
 }
