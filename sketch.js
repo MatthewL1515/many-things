@@ -16,6 +16,7 @@ function draw() {
 
   // Circles
   for (let circle of circles) {
+    updateCircle(circle)
     drawCircle(circle) // Draw each random circle
   }
 
@@ -23,13 +24,15 @@ function draw() {
   drawCircle(mouseCircle)
 }
 
-function createCircle(x, y, size, color) {
+function createCircle(x, y, size, color, dx, dy) {
   return {
     x: x,
     y: y,
     r: size / 2,
     size: size,
-    color: color
+    color: color,
+    dx: dx,
+    dy: dy
   }
 }
 
@@ -38,6 +41,22 @@ function drawCircle(circle) {
   fill(circle.color)
   noStroke()
   ellipse(circle.x, circle.y, circle.size)
+}
+
+function updateCircle(circle) {
+  // Moving Circles
+  circle.x += circle.dx
+  circle.y += circle.dy
+  
+  
+  // Boundary Checking
+  if (circle.x - circle.r < 0 || circle.x + circle.r > width) {
+    circle.dx *= -1
+  }
+  
+  if (circle.y - circle.r < 0 || circle.y + circle.r > height) {
+    circle.dy *= -1
+  }
 }
 
 function startCircles() {
@@ -49,8 +68,9 @@ function startCircles() {
     let randomY = random(50, height - 50)
     let randomSize = random(20, 50)
     let randomColor = color(random(255), random(255), random(255))
-    circles.push(createCircle(randomX, randomY, randomSize, randomColor)) 
-    
+    let randomDx = random(-2,2)
+    let randomDy = random(-2,2)
+    circles.push(createCircle(randomX, randomY, randomSize, randomColor, randomDx, randomDy)) 
   }
 
   mouseCircle = createCircle(mouseX, mouseY, 30, color(255, 0, 0))
