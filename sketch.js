@@ -57,6 +57,8 @@ function updateCircle(circle) {
   if (circle.y - circle.r < 0 || circle.y + circle.r > height) {
     circle.dy *= -1
   }
+  
+  checkCollision(mouseCircle, circle)
 }
 
 function startCircles() {
@@ -74,4 +76,18 @@ function startCircles() {
   }
 
   mouseCircle = createCircle(mouseX, mouseY, 30, color(255, 0, 0))
+}
+
+function checkCollision(c1,c2) {
+  let distance = dist(c1.x, c1.y, c2.x, c2.y)
+  if (distance <= c1.r + c2.r) {
+    stopCirlces()
+    }
+}
+
+function stopCircles(){
+  for (let circle of circles) {
+    circle.dx = 0
+    circle.dy = 0
+  }
 }
