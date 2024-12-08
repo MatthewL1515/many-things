@@ -13,5 +13,19 @@ function setup() {
 
 function draw() {
   background(0);
+  
 
+}
+
+function createCircle(size, color) {
+  return {
+    x: random(width),
+    y: random(height),
+    radius: radius,
+    dx: random (-3,3),
+    dy: random(-3,3),
+    size: size,
+    r: size/2,
+    color: color
+  }
 }
