@@ -15,10 +15,10 @@ function draw() {
   mouseCircle.x = mouseX
   mouseCircle.y = mouseY
 
-  // Circles
+  // Circles Array
   for (let circle of circles) {
     updateCircle(circle)
-    drawCircle(circle) // Draw each random circle
+    drawCircle(circle)
   }
 
   // Mouse-controlled circle
@@ -62,7 +62,7 @@ function updateCircle(circle) {
   if (circle.y - circle.r < 0 || circle.y + circle.r > height) {
     circle.dy *= -1
   }
-  
+  // Collision Check
   checkCollision(mouseCircle, circle)
 }
 
@@ -80,16 +80,18 @@ function startCircles() {
     circles.push(createCircle(randomX, randomY, randomSize, randomColor, randomDx, randomDy)) 
   }
 
+  // Mouse Circle
   mouseCircle = createCircle(mouseX, mouseY, 30, color(255, 0, 0))
 }
 
 function checkCollision(c1,c2) {
   let distance = dist(c1.x, c1.y, c2.x, c2.y)
   if (distance <= c1.r + c2.r) {
-    noLoop()
+    noLoop() // Stops All from moving if collision
     }
 }
 
+// Any Key Pressed Restarts Game
 function keyPressed() {
   startCircles()
 }
